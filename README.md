@@ -70,13 +70,17 @@ Antes de enviar, rode com a flag --dry-run. Isso mostrará na tela quem receber�
 ./enviar.sh --dry-run alunos.txt documentos.zip
 
 ```
-📂 Estrutura do Projeto
+## 📂 Estrutura do Projeto
+
+```text
 .
 ├── enviar.sh        # Script principal (Lógica, Interface, Logs)
 ├── send_mail.py     # Script auxiliar (Conexão SMTP)
-├── alunos.txt       # Exemplo de lista de alunos
-├── envios.log       # Log gerado automaticamente (após execução)
-└── README.md        # Documentação
+├── alunos.txt       # Lista de alunos (base de dados)
+├── docs.zip         # Arquivo compactado com os documentos
+├── envios.log       # (Gerado automaticamente) Registro de atividades
+└── README.md        # Documentação do projeto
+```
 
 👥 Autores
 Projeto desenvolvido pela equipe de Sistemas Operacionais (2025):
