@@ -24,4 +24,67 @@ Para executar a ferramenta, você precisa de um ambiente Unix-like (Linux, macOS
 No Ubuntu/Debian/WSL, você pode instalar as dependências com:
 ```bash
 sudo apt update
-sudo apt install python3 unzip
+sudo apt install python3 unzip 
+
+```
+⚙️ Instalação e Configuração
+1. Clonar o Repositório
+Baixe o código para sua máquina local:
+```bash
+git clone [https://github.com/gui-carrazzoni/SO.git](https://github.com/gui-carrazzoni/SO.git)
+cd SO
+
+```
+
+2. Permissões de Execução
+Scripts baixados da internet não possuem permissão de execução por padrão. Utilize o comando chmod para liberar:
+```bash
+chmod +x enviar.sh send_mail.py
+
+```
+3. Configuração de Credenciais
+Abra o arquivo send_mail.py e edite as variáveis de configuração para inserir o e-mail remetente.
+
+⚠️ IMPORTANTE: Se estiver usando Gmail, você NÃO deve usar sua senha de login normal. Crie uma Senha de App (App Password) nas configurações de segurança da sua conta Google.
+```python
+# No arquivo send_mail.py:
+
+SMTP_USER = "seu.email@gmail.com"
+SMTP_PASS = "sua-senha-de-app-aqui"
+
+```
+💻 Como Usar
+A sintaxe básica do comando é:
+```bash
+./enviar.sh [opções] <arquivo_lista_alunos.txt> <arquivo_docs.zip>
+
+```
+Passo 1: Preparar os Arquivos
+Lista de Alunos: Crie um arquivo .txt contendo um nome completo de aluno por linha.
+
+Documentos: Organize os PDFs em uma pasta ou arquivo .zip. O nome do arquivo deve conter partes do nome do aluno para o sistema fazer a correspondência.
+
+Passo 2: Modo Simulação (Recomendado)
+Antes de enviar, rode com a flag --dry-run. Isso mostrará na tela quem receberá qual arquivo, sem disparar o e-mail.
+```bash
+./enviar.sh --dry-run alunos.txt documentos.zip
+
+```
+📂 Estrutura do Projeto
+.
+├── enviar.sh        # Script principal (Lógica, Interface, Logs)
+├── send_mail.py     # Script auxiliar (Conexão SMTP)
+├── alunos.txt       # Exemplo de lista de alunos
+├── envios.log       # Log gerado automaticamente (após execução)
+└── README.md        # Documentação
+
+👥 Autores
+Projeto desenvolvido pela equipe de Sistemas Operacionais (2025):
+
+Alysson Fernandes Silva Tavares
+
+Guilherme Santos Carrazoni
+
+Pedro Henrique Bullé de Souza
+
+Escola Politécnica de Pernambuco - UPE
