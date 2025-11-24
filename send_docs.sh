@@ -103,15 +103,42 @@ gerar_iniciais() {
     echo "$inic"
 }
 
-# CONFIRMAÇÃO ANTES DE ENVIAR
-
-echo "PRÉVIA DO ENVIO:"
-echo "Alunos carregados: ${#nomes[@]}"
-echo "Arquivos na pasta: $(ls "$DOCS" | wc -l)"
-echo "Domínio configurado: $DOMINIO"
+echo "=========================================================="
+echo "                 SIMULAÇÃO DE CORRESPONDÊNCIA             "
+echo "=========================================================="
+echo "Verificando arquivos em: $DOCS"
 echo ""
-echo "AVISO: Se você continuar, os emails serão enviados via SMTP."
-echo "Deseja realmente enviar? (s/n)"
+
+match_count=0
+
+# Loop de simulação (apenas exibe, não envia)
+for doc in "$DOCS"/*; do
+    filename=$(basename "$doc")
+    lower=$(echo "$filename" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]' | iconv -f UTF-8 -t ASCII//TRANSLIT)
+
+    for i in "${!nomes[@]}"; do
+        nome_clean="${nomes[$i]}"
+        nome_original="${nomes_originais[$i]}"
+
+        if [[ "$lower" == *"$nome_clean"* ]]; then
+            iniciais=$(gerar_iniciais "$nome_original")
+            email="${iniciais,,}$DOMINIO"
+            # Exibe o Match encontrado na tela
+            echo " [MATCH] $filename  ---->  $email ($nome_original)"
+            ((match_count++))
+        fi
+    done
+done
+
+echo ""
+echo "----------------------------------------------------------"
+echo "RESUMO:"
+echo "Alunos na lista: ${#nomes[@]}"
+echo "Arquivos na pasta: $(ls "$DOCS" | wc -l)"
+echo "Correspondências (Matches) encontradas: $match_count"
+echo "----------------------------------------------------------"
+echo "AVISO: Se você digitar 's', os emails ACIMA serão enviados agora."
+echo "Deseja prosseguir com o envio REAL? (s/n)"
 read resposta
 
 if [[ "$resposta" != "s" && "$resposta" != "S" ]]; then
@@ -121,6 +148,7 @@ if [[ "$resposta" != "s" && "$resposta" != "S" ]]; then
 fi
 
 echo "Iniciando envio..."
+log "Início do processamento em massa."
 
 # LOOP DE ENVIO
 
