@@ -15,7 +15,7 @@ param (
 # 0. VERSIONAMENTO E AUTO-UPDATE
 # ==============================================================================
 $Version = "1.0.0"
-$RepoUrl = "https://raw.githubusercontent.com/gui-carrazzoni/SO/refs/heads/main/enviar.ps1"
+$RepoUrl = "https://raw.githubusercontent.com/gui-carrazzoni/SO/main/enviar.ps1"
 
 function Check-Update {
     Write-Host "Verificando atualizações..." -ForegroundColor Gray
