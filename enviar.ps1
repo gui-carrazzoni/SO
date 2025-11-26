@@ -8,7 +8,7 @@ param (
     [string]$DocsPath,
     [switch]$DryRun,
     [switch]$ResetCreds,
-    [switch]$Help
+    [switch]$Help,
     [switch]$Update
 )
 # ==============================================================================
@@ -80,6 +80,7 @@ OPÇÕES:
   -DryRun       Modo Simulação. Mostra os matches na tela sem enviar e-mail.
   -ResetCreds   Apaga as credenciais salvas e solicita novo login/senha.
   -Help         Exibe esta mensagem de ajuda.
+  -Update       Verifica e atualiza o comando com a versão mais recente disponível.
 
 EXEMPLOS:
   1. Simulação (Recomendado):
