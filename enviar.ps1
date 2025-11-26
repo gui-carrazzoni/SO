@@ -14,7 +14,7 @@ param (
 # ==============================================================================
 # 0. VERSIONAMENTO E AUTO-UPDATE
 # ==============================================================================
-$Version = "1.0.2"
+$Version = "1.0.3"
 $RepoUrl = "https://raw.githubusercontent.com/gui-carrazzoni/SO/main/enviar.ps1"
 
 function Check-Update {
@@ -241,7 +241,7 @@ $Files = Get-ChildItem -Path $WorkDir -File
 $MatchesFound = @()
 
 foreach ($File in $Files) {
-    $FileClean = (Remove-Diacritics $File.Name).ToLower().Replace(" ", "")
+    $FileClean = (Remove-Diacritics $File.Name).ToLower().Replace(" ", "").Replace("-", "").Replace("_", "")
     foreach ($Aluno in $AlunosData) {
         if ($FileClean -match $Aluno.Clean) {
             $Iniciais = Get-Initials $Aluno.Original
