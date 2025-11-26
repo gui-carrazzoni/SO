@@ -14,7 +14,7 @@ param (
 # ==============================================================================
 # 0. VERSIONAMENTO E AUTO-UPDATE
 # ==============================================================================
-$Version = "1.0.1"
+$Version = "1.0.2"
 $RepoUrl = "https://raw.githubusercontent.com/gui-carrazzoni/SO/main/enviar.ps1"
 
 function Check-Update {
@@ -66,7 +66,6 @@ if ($Update) {
 function Show-Help {
     Write-Host "
 USO:
-    !!!!!!!!!!!!!!!!!! TESTE DO VERSIONAMENTO !!!!!!!!!!!!!!!!!!!
   enviar -AlunosFile <caminho_txt> -DocsPath <caminho_zip_ou_pasta> [Opções]
 
 DESCRIÇÃO:
