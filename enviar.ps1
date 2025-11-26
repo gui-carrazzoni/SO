@@ -9,12 +9,59 @@ param (
     [switch]$DryRun,
     [switch]$ResetCreds,
     [switch]$Help
+    [switch]$Update
 )
+# ==============================================================================
+# 0. VERSIONAMENTO E AUTO-UPDATE
+# ==============================================================================
+$Version = "1.0.0"
+$RepoUrl = "https://raw.githubusercontent.com/gui-carrazzoni/SO/refs/heads/main/enviar.ps1"
+
+function Check-Update {
+    Write-Host "Verificando atualizações..." -ForegroundColor Gray
+    try {
+        # 1. Baixa o código do GitHub (apenas texto)
+        $WebClient = New-Object System.Net.WebClient
+        $RemoteContent = $WebClient.DownloadString($RepoUrl)
+
+        # 2. Usa Regex para achar a versão no código remoto
+        if ($RemoteContent -match '\$Version\s*=\s*"([\d\.]+)"') {
+            $RemoteVersion = [System.Version]$matches[1]
+            $LocalVersion  = [System.Version]$Version
+
+            if ($RemoteVersion -gt $LocalVersion) {
+                Write-Host "Nova versão encontrada: $RemoteVersion (Atual: $LocalVersion)" -ForegroundColor Green
+                Write-Host "Atualizando..." -NoNewline
+
+                # 3. Sobrescreve o próprio arquivo
+                Set-Content -Path $PSCommandPath -Value $RemoteContent -Encoding UTF8
+
+                Write-Host " [CONCLUÍDO]" -ForegroundColor Green
+                Write-Host "Por favor, execute o comando novamente para usar a nova versão."
+                exit
+            } else {
+                Write-Host "Você já está na versão mais recente ($LocalVersion)." -ForegroundColor Green
+            }
+        } else {
+            Write-Warning "Não foi possível ler a versão remota."
+        }
+    }
+    catch {
+        Write-Error "Falha ao verificar atualização: $($_.Exception.Message)"
+        Write-Host "Verifique sua conexão com a internet ou se o repositório existe." -ForegroundColor Red
+    }
+}
+
+# Se o usuário pediu update, roda a função e encerra
+if ($Update) {
+    Check-Update
+    exit
+}
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 # ==============================================================================
-# 2. FUNÇÃO DE HELP
+#  FUNÇÃO DE HELP
 # ==============================================================================
 function Show-Help {
     Write-Host "
