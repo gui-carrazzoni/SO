@@ -1,0 +1,9 @@
+Package: ppgec-enviar
+Version: 1.0.2
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: Sua Equipe <email@exemplo.com>
+Description: Automacao de envios PPGEC
+ Ferramenta CLI para envio de documentos em lote
+ para alunos do PPGEC via SMTP.
