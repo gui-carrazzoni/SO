@@ -187,4 +187,4 @@ Guilherme Santos Carrazoni
 
 Pedro Henrique Bullé de Souza
 
-Escola Politécnica de Pernambuco - UPE
+Escola Politécnica de Pernambuco - UPE.
